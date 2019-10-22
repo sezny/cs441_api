@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_25_211859) do
+ActiveRecord::Schema.define(version: 2019_10_22_013219) do
 
   create_table "events", force: :cascade do |t|
     t.string "title"
@@ -18,7 +18,19 @@ ActiveRecord::Schema.define(version: 2019_09_25_211859) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.integer "permissions_id"
+    t.index ["permissions_id"], name: "index_events_on_permissions_id"
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "events_permissions", id: false, force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.integer "permission_id", null: false
+  end
+
+  create_table "events_users", id: false, force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.integer "user_id", null: false
   end
 
   create_table "jwt_blacklists", force: :cascade do |t|
@@ -29,6 +41,21 @@ ActiveRecord::Schema.define(version: 2019_09_25_211859) do
     t.index ["jti"], name: "index_jwt_blacklists_on_jti"
   end
 
+  create_table "permissions", force: :cascade do |t|
+    t.integer "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "users_id"
+    t.integer "events_id"
+    t.index ["events_id"], name: "index_permissions_on_events_id"
+    t.index ["users_id"], name: "index_permissions_on_users_id"
+  end
+
+  create_table "permissions_users", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "permission_id", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -37,7 +64,12 @@ ActiveRecord::Schema.define(version: 2019_09_25_211859) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "major"
+    t.integer "grad_year"
+    t.integer "school"
+    t.integer "permissions_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["permissions_id"], name: "index_users_on_permissions_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

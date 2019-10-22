@@ -49,3 +49,8 @@ gem 'devise-jwt'
 gem "active_model_serializers", require: true
 
 gem 'searchkick'
+
+
+group :development, :test do
+    gem 'railroady'
+end

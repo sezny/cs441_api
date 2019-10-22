@@ -1,4 +1,5 @@
 class Event < ApplicationRecord
     searchkick
-    belongs_to :user
+    has_and_belongs_to_many :users, optional: true
+    has_and_belongs_to_many :permissions, optional: true
 end
