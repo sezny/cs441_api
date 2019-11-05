@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   
   get  '/events/search',   to: 'events#search'
   post '/events/create', to: 'events#create'
+
+  get '/me', to: 'users#me'
 end

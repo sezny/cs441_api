@@ -6,4 +6,5 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: JWTBlacklist
   has_and_belongs_to_many :events
   has_and_belongs_to_many :permissions
+  has_many                :schedules
 end

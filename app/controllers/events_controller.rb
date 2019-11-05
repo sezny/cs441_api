@@ -8,13 +8,13 @@ class EventsController < ApplicationController
       @event = Event.new(:title => params[:event][:title],
                  :description => params[:event][:description])
       @event.save
-   #   current_user.events << @event
-   #   Event.reindex
+      current_user.events << @event
+      Event.reindex
       render json: @event.to_json
     end
 
     def search
-  #      render json: params[:q].to_s.length > 0 ? Event.search(params[:q]) : Event.all
+        render json: params[:q].to_s.length > 0 ? Event.search(params[:q]) : Event.all
     end
 
     private

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_22_013219) do
+ActiveRecord::Schema.define(version: 2019_10_29_005732) do
 
   create_table "events", force: :cascade do |t|
     t.string "title"
@@ -54,8 +54,9 @@ ActiveRecord::Schema.define(version: 2019_10_22_013219) do
   create_table "permissions_users", id: false, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "permission_id", null: false
+  end
 
-    create_table "posts", force: :cascade do |t|
+  create_table "posts", force: :cascade do |t|
     t.string "name"
     t.string "content"
     t.string "picture"
@@ -63,6 +64,15 @@ ActiveRecord::Schema.define(version: 2019_10_22_013219) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "duration"
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.string "day"
+    t.string "start_time"
+    t.string "end_time"
+    t.date "date"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
